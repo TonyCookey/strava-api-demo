@@ -2,26 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Athletes', {
+    await queryInterface.createTable('Activities', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.BIGINT
       },
-      firstname: {
-        type: Sequelize.STRING
-      },
-      lastname: {
-        type: Sequelize.STRING
-      },
-      access_token: {
-        type: Sequelize.STRING
-      },
-      refresh_token: {
-        type: Sequelize.STRING
-      },
-      expires_at: {
+      athlete_id: {
         type: Sequelize.BIGINT
+      },
+      name: {
+        type: Sequelize.STRING
+      },
+      distance: {
+        type: Sequelize.FLOAT
+      },
+      moving_time: {
+        type: Sequelize.BIGINT
+      },
+      elapsed_time: {
+        type: Sequelize.BIGINT
+      },
+      type: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      calories: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Athletes');
+    await queryInterface.dropTable('Activities');
   }
 };

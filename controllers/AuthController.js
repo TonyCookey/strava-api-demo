@@ -14,13 +14,22 @@ const authorize = async (req, res) => {
     }
 }
 
+const refreshAthleteAccessToken = async (payload) => {
+    try {
+
+    } catch (error) {
+        console.error(error)
+
+    }
+}
 
 const StravaOauthCallback = async (req, res) => {
     try {
         const auth_code = req.query.code
+
         if (!auth_code) {
             return res.status(400).json({
-                message: 'Could not Authorize Strava Athlete',
+                message: 'Could not Find Authorize Code.',
                 'Login Link': `${process.env.APP_URL}app/authorize`
             })
         }
@@ -31,9 +40,6 @@ const StravaOauthCallback = async (req, res) => {
             code: auth_code,
             grant_type: 'authorization_code'
         })
-        console.log(data.data);
-
-        data = data.data
 
         if (!data) {
             return res.status(500).json({
@@ -41,7 +47,7 @@ const StravaOauthCallback = async (req, res) => {
                 'Authorization Link': `${process.env.APP_URL}app/authorize`
             })
         }
-        const athlete = await Athlete.findByPK(data.athlete.id)
+        const athlete = await Athlete.findByPk(data.athlete.id)
         if (athlete) {
             athlete.access_token = data.access_token
             athlete.refresh_token = data.refresh_token
@@ -65,14 +71,16 @@ const StravaOauthCallback = async (req, res) => {
     } catch (error) {
         console.error(error)
         return res.status(500).json({
-            message: 'Could not Authorize Strava Athlete',
+            message: 'System Encountered Error Authorizing Strava Athlete',
             'Authorization Link': `${process.env.APP_URL}app/authorize`,
             error
         })
     }
 }
 
+
 module.exports = {
     authorize,
-    StravaOauthCallback
+    StravaOauthCallback,
+    refreshAthleteAccessToken
 }

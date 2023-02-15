@@ -1,33 +1,24 @@
 const { Router } = require('express');
+const verifyWebhook = require('../middlewares/verifyWebhook');
+const ActivityController = require('../controllers/ActivityController')
+
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', verifyWebhook)
 
-    // Your verify token. Should be a random string.
-    const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-    // Parses the query params
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
+router.post('/', async (req, res) => {
+    console.log("EVENT_RECEIVED", req.query);
+    if (req.body.object_type == 'activity') {
+        // Sending the Response earlier to meet up the response time of 2 seconds
+        console.log("hello");
+        const data = await ActivityController.index(req.body)
+        res.status(200).json({
+            data
+        });
+        // res.status(200).send('EVENT_RECEIVED');
 
-    // Checks if a token and mode is in the query string of the request
-    if (mode && token) {
-        // Verifies that the mode and token sent are valid
-        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-            // Responds with the challenge token from the request
-            console.log('WEBHOOK_VERIFIED');
-            res.json({ 'hub.challenge': challenge });
-        } else {
-            // Responds with '403 Forbidden' if verify tokens do not match
-            res.sendStatus(403);
-        }
     }
-})
-
-router.post('/', (req, res) => {
-    console.log("webhook event received!", req.query, req.body);
-    res.status(200).send('EVENT_RECEIVED');
 })
 
 module.exports = router

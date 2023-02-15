@@ -6,8 +6,8 @@ const cors = require('cors');
 const AppRoutes = require('./routes/app')
 const WebHookRoutes = require('./routes/webhook')
 
-// const db = require('./models');
-// db.sequelize.sync();
+const db = require('./models');
+db.sequelize.sync();
 
 const app = express();
 
