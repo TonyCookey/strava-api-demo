@@ -98,6 +98,6 @@ If you don't have a Valid and Active Susbsription. The Server will attempt to de
 
 When a subscription is created. You should see `WEBHOOK_VERIFIED` printed to the terminal console if the request was successful.
 
-## Login/Authorization
+## Login and Authorization
 
 Once on the homepage, you will be shown a link to authorize a strava athlete. This authorizes an athlete and allows our API to track his activty.
