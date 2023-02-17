@@ -7,17 +7,15 @@ const router = Router();
 
 router.get('/', verifyWebhook)
 
+// POST Route to receive the Wehook Events  
 router.post('/', async (req, res) => {
-    console.log("EVENT_RECEIVED", req.query);
+    console.log("EVENT_RECEIVED");
+    const payload = req.body
     if (req.body.object_type == 'activity') {
-        // Sending the Response earlier to meet up the response time of 2 seconds
-        console.log("hello");
-        const data = await ActivityController.index(req.body)
-        res.status(200).json({
-            data
-        });
-        // res.status(200).send('EVENT_RECEIVED');
-
+        // Sending the response earlier to meet up the response time of 2 seconds
+        res.status(200).send('EVENT_RECEIVED');
+        //handle the incoming activity event
+        await ActivityController.index(payload)
     }
 })
 
