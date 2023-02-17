@@ -6,14 +6,13 @@ NodeJS API powered by the Strava API to track Athletes Activities
 
 ### Setup Backend
 
-####Install Dependencies
+#### Install Dependencies
 
 ```
 npm install
-
 ```
 
-###Set Enviroment Variables
+#### Set Enviroment Variables
 
 Create a `.env` file in the root folder and copy the content of the `.env.example` file into it and update the neccesary details
 
@@ -32,7 +31,6 @@ docker pull postgres
 
 ```
 docker run --name <<CONTAINER_NAME>> -p 5432:5432 -e POSTGRES_USER=<<USER_NAME>> -e POSTGRES_PASSWORD=<<PASSWORD>> -d <<IMAGE_NAME>>
-
 ```
 
 ### Setup Database and Migrations
@@ -41,14 +39,12 @@ Create a Database using the command below
 
 ```
 npm run create-db
-
 ```
 
 Run Migrations
 
 ```
 npm run migrate-db
-
 ```
 
 ## Prerequisites before Starting the Development Server
@@ -59,7 +55,6 @@ Start the ngrok server
 
 ```
 ngrok http <<YOUR_APP_PORT>>
-
 ```
 
 ### Setting up your Strava Application
@@ -83,7 +78,6 @@ APP_URL=
 
 ```
  npm run dev
-
 ```
 
 # Using the API
@@ -101,3 +95,5 @@ When a subscription is created. You should see `WEBHOOK_VERIFIED` printed to the
 ## Login and Authorization
 
 Once on the homepage, you will be shown a link to authorize a strava athlete. This authorizes an athlete and allows our API to track his activty.
+
+Thanks for Reading.
